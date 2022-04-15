@@ -165,7 +165,12 @@ export default class RuntimeInterface extends EventEmitter {
       provider: result.provider,
     };
     this._fileLookupMap = result.lookupMap;
-    this._session = await this.generateSession(txHash, options);
+
+    const bugger = await truffleDebugger.forTx(txHash, options);
+    const session = bugger.connect();
+    await session.ready();
+
+    this._session = session;
     this._isDebuggerAttached = true;
   }
 
@@ -216,10 +221,12 @@ export default class RuntimeInterface extends EventEmitter {
     }
   }
 
-  private async generateSession(txHash: string, options: truffleDebugger.DebuggerOptions) {
-    const bugger = await truffleDebugger.forTx(txHash, options);
-    return bugger.connect();
-  }
+  // private async generateSession(txHash: string, options: truffleDebugger.DebuggerOptions) {
+  //   const bugger = await truffleDebugger.forTx(txHash, options);
+  //   // const session = bugger.connect();
+  //   // return session.ready();
+  //   return bugger.connect();
+  // }
 
   private validateSession() {
     if (!this._session) {

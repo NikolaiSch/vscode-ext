@@ -94,6 +94,7 @@ const baseSessionMock: truffleDebugger.Session = {
   stepNext: () => Promise.resolve(),
   stepOut: () => Promise.resolve(),
   variables: () => Promise.resolve([]),
+  ready: () => Promise.resolve(),
   view: (_selector: any) => ({}),
 };
 

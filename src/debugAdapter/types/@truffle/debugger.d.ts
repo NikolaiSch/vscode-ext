@@ -26,6 +26,7 @@ declare module "@truffle/debugger" {
     stepNext: () => Promise<void>;
     stepInto: () => Promise<void>;
     stepOut: () => Promise<void>;
+    ready: () => Promise<any>;
   }
 
   interface Debugger {
